@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}CyberShield{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><span class="brand-icon">🛡️</span><div><b>CyberShield</b><small>AI Safety Intelligence</small></div></div>
+  <nav>
+    <a href="/" class="{{ 'active' if request.path=='/' else '' }}">⌂ <span>Dashboard</span></a>
+    <div class="nav-title">SCANNERS</div>
+    <a href="/scanner" class="{{ 'active' if request.path=='/scanner' else '' }}">🛡️ <span>Message Scanner</span></a>
+    <a href="/bank">🏦 <span>Bank / UPI</span></a>
+    <a href="/jobs">💼 <span>Jobs / Internship</span></a>
+    <a href="/url">🔗 <span>URL Scanner</span></a>
+    <a href="/mobile">📱 <span>Mobile Checker</span></a>
+    <a href="/email">✉️ <span>Email Checker</span></a>
+    <a href="/location">📍 <span>Location Intelligence</span></a>
+    <div class="nav-title">RESPONSE</div>
+    <a href="/incident">🚨 <span>Incident Reports</span></a>
+    <a href="/police">👮 <span>Report to Police</span></a>
+  </nav>
+  <div class="side-foot">SECURE BY DESIGN<br><span>Local analysis • User controlled</span></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><span class="eyebrow">CYBERSECURITY COMMAND CENTER</span><h1>{% block heading %}Cyber Risk Dashboard{% endblock %}</h1></div><div class="status"><i></i> SYSTEM READY</div></header>
+{% block content %}{% endblock %}
+<footer>CyberShield Major Project • Demo analysis is pattern-based and should not replace official verification.</footer>
+</main></div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body></html>

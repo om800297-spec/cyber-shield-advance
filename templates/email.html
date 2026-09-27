@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block heading %}Email Checker{% endblock %}{% block content %}
+<div class="page-intro"><span class="eyebrow">06 • EMAIL INTELLIGENCE</span><h2>Validate syntax, inspect domain and flag basic suspicious-domain patterns.</h2></div>
+<div class="panel tool-panel"><input id="e" placeholder="security@example.com"><button onclick="check()">CHECK EMAIL</button><div id="out"></div></div>
+{% endblock %}{% block scripts %}<script>async function check(){let e=document.getElementById('e').value;let r=await fetch('/api/email',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e})}).then(x=>x.json());document.getElementById('out').innerHTML=`<div class="big-result"><span class="risk ${r.valid&&!r.suspicious?'low-risk':'suspicious'}">${r.valid?(r.suspicious?'SUSPICIOUS DOMAIN':'FORMAT VALID'):'INVALID EMAIL'}</span><p><b>Domain:</b> ${r.domain}</p><p>${r.warning}</p></div>`}</script>{% endblock %}

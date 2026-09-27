@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block heading %}Incident Reports{% endblock %}{% block content %}
+<div class="page-intro"><span class="eyebrow">08 • EVIDENCE PACK</span><h2>Structured incident report</h2></div>
+<div class="panel" id="reportBox"><div class="empty">No report selected. Create one from a scanner.</div></div>
+<div class="panel"><div class="panel-head"><h3>Generated Reports</h3><a class="button secondary" href="/police">Report to Police →</a></div><div id="list" class="report-list"></div></div>
+{% endblock %}{% block scripts %}<script>
+async function load(){let s=await fetch('/api/stats').then(x=>x.json());let rid=new URLSearchParams(location.search).get('rid');if(rid){let r=await fetch('/api/report/'+rid).then(x=>x.json());show(r)}}
+function show(r){document.getElementById('reportBox').innerHTML=`<div class="report-head"><div><span class="eyebrow">INCIDENT ID</span><h2>${r.id}</h2></div><span class="risk ${r.risk.level.replaceAll(' ','-').toLowerCase()}">${r.risk.level}</span></div><div class="report-grid"><div><b>Date / Time</b><span>${r.date}</span></div><div><b>Category</b><span>${r.category}</span></div><div><b>Risk Score</b><span>${r.risk.score}/100</span></div><div><b>Mobile</b><span>${(r.entities.mobile||[]).join(', ')||'None'}</span></div><div><b>Email</b><span>${(r.entities.email||[]).join(', ')||'None'}</span></div><div><b>URL</b><span>${(r.entities.urls||[]).join(', ')||'None'}</span></div></div><h4>Suspicious Indicators</h4><div class="chips">${(r.risk.indicators||[]).map(x=>`<span>⚠ ${x}</span>`).join('')||'None'}</div><h4>Original Message</h4><pre class="evidence">${r.message}</pre><a class="button" href="/download-report/${r.id}">DOWNLOAD REPORT</a></div>`}
+load()
+</script>{% endblock %}

@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{if(navigator.vibrate)navigator.vibrate(8)}));});

@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block content %}
+<section class="hero"><div><div class="eyebrow">REAL-TIME SAFETY OVERVIEW</div><h2>Detect. Understand. Respond.</h2><p>One command center for suspicious messages, payments, jobs, URLs and digital incidents.</p></div><div class="shield">🛡️</div></section>
+<div class="cards">
+<div class="stat"><span>Total Scans</span><b id="total">0</b><small>All analyzed incidents</small></div>
+<div class="stat danger"><span>High Risk</span><b id="high">0</b><small>Immediate caution</small></div>
+<div class="stat warn"><span>Suspicious</span><b id="suspicious">0</b><small>Needs verification</small></div>
+<div class="stat safe"><span>Low Risk</span><b id="low">0</b><small>No strong indicators</small></div>
+</div>
+<div class="grid2">
+<div class="panel risk-panel"><div class="panel-head"><div><span class="eyebrow">CYBER RISK SCORE</span><h3 id="riskText">0 / 100</h3></div><div class="risk-ring" id="ring"><span id="ringVal">0</span></div></div><div class="meter"><i id="meter"></i></div><p class="muted">Average risk across generated incident reports.</p></div>
+<div class="panel"><div class="panel-head"><div><span class="eyebrow">MODULE ACTIVITY</span><h3>Scanner Coverage</h3></div></div><div class="module-grid">
+<a href="/bank">🏦<b>Bank / UPI</b><small>Payment scams</small></a><a href="/jobs">💼<b>Jobs</b><small>Fee & selection scams</small></a><a href="/url">🔗<b>URLs</b><small>Link patterns</small></a><a href="/incident">🚨<b>Reports</b><small>Incident evidence</small></a>
+</div></div>
+</div>
+<div class="panel"><div class="panel-head"><div><span class="eyebrow">QUICK ACTIONS</span><h3>Start a security check</h3></div></div><div class="actions"><a class="action" href="/scanner">🛡️ <b>Scan Message</b><span>Analyze suspicious text</span></a><a class="action" href="/url">🔗 <b>Check URL</b><span>Inspect link patterns</span></a><a class="action" href="/mobile">📱 <b>Check Mobile</b><span>Validate format only</span></a><a class="action" href="/email">✉️ <b>Check Email</b><span>Validate domain patterns</span></a></div></div>
+{% endblock %}{% block scripts %}<script>
+async function load(){let s=await fetch('/api/stats').then(r=>r.json()); for(let k of ['total','high','suspicious','low'])document.getElementById(k).textContent=s[k]; document.getElementById('riskText').textContent=s.avgRisk+' / 100'; document.getElementById('ringVal').textContent=s.avgRisk; document.getElementById('meter').style.width=s.avgRisk+'%';} load();
+</script>{% endblock %}
